@@ -1,34 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   new_chunk.c                                        :+:      :+:    :+:   */
+/*   eval_flags.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hde-camp <hde-camp@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/07/01 12:20:52 by hde-camp          #+#    #+#             */
-/*   Updated: 2021/07/05 16:29:04 by hde-camp         ###   ########.fr       */
+/*   Created: 2021/07/05 16:41:23 by hde-camp          #+#    #+#             */
+/*   Updated: 2021/07/05 18:16:17 by hde-camp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libaux.h"
 #include "../libft/libft.h"
 
-t_chunk	*new_chunk(void *arg)
+int	eval_flags(t_chunk *chunk, char *str)
 {
-	t_chunk	*self_ptr;
-	char	*c_ptr;
-	char	*f_ptr;
+	int	i;
 
-	self_ptr = malloc(sizeof(t_chunk));
-	if (self_ptr)
+	i = 0;
+	while (allowed_character((unsigned char)str[i]))
 	{
-		self_ptr->argument = arg;
-		self_ptr->flags = NULL;
-		self_ptr->width = 0;
-		self_ptr->precision = 0;
-		self_ptr->conversion = NULL;
-		self_ptr->next = NULL;
-		self_ptr->previous = NULL;
+		i++;
 	}
-	return (self_ptr);
+	if (i > 0)
+	{
+		chunk->flags = ft_substr(str, 0, i);
+	}
+	return (i);
+}
+
+int	allowed_character(char c)
+{
+	if (c == '-' || c == '0')
+		return (1);
+	return (0);
 }
