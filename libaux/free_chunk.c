@@ -6,7 +6,7 @@
 /*   By: hde-camp <hde-camp@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/01 13:26:20 by hde-camp          #+#    #+#             */
-/*   Updated: 2021/07/01 14:32:36 by hde-camp         ###   ########.fr       */
+/*   Updated: 2021/07/05 20:43:51 by hde-camp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,15 @@ void	free_chunk(t_chunk **str_ptr)
 			free((*str_ptr)->conversion);
 		if ((*str_ptr)->flags)
 			free((*str_ptr)->flags);
+		if ((*str_ptr)->width)
+			free((*str_ptr)->width);
+		if ((*str_ptr)->precision)
+			free((*str_ptr)->precision);
 		(*str_ptr)->argument = NULL;
 		(*str_ptr)->conversion = NULL;
 		(*str_ptr)->flags = NULL;
+		(*str_ptr)->width = NULL;
+		(*str_ptr)->precision = NULL;
 	}
 	free(*str_ptr);
 	*str_ptr = NULL;

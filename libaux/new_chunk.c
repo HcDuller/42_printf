@@ -6,7 +6,7 @@
 /*   By: hde-camp <hde-camp@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/01 12:20:52 by hde-camp          #+#    #+#             */
-/*   Updated: 2021/07/05 16:29:04 by hde-camp         ###   ########.fr       */
+/*   Updated: 2021/07/05 21:27:49 by hde-camp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,16 @@ t_chunk	*new_chunk(void *arg)
 	char	*c_ptr;
 	char	*f_ptr;
 
-	self_ptr = malloc(sizeof(t_chunk));
+	self_ptr = ft_calloc(1, sizeof(t_chunk));
 	if (self_ptr)
 	{
-		self_ptr->argument = arg;
+		if (arg)
+			self_ptr->argument = arg;
+		else
+			self_ptr->argument = NULL;
 		self_ptr->flags = NULL;
-		self_ptr->width = 0;
-		self_ptr->precision = 0;
+		self_ptr->width = NULL;
+		self_ptr->precision = NULL;
 		self_ptr->conversion = NULL;
 		self_ptr->next = NULL;
 		self_ptr->previous = NULL;

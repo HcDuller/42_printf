@@ -1,39 +1,53 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   eval_flags.c                                       :+:      :+:    :+:   */
+/*   eval_conversion.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hde-camp <hde-camp@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/07/05 16:41:23 by hde-camp          #+#    #+#             */
-/*   Updated: 2021/07/05 19:42:53 by hde-camp         ###   ########.fr       */
+/*   Created: 2021/07/05 20:49:44 by hde-camp          #+#    #+#             */
+/*   Updated: 2021/07/05 21:39:44 by hde-camp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libaux.h"
 #include "../libft/libft.h"
 
-static	int	allowed_character(char c);
+static int	is_conv_spec(char c);
 
-int	eval_flags(t_chunk *chunk, char *str)
+int	eval_conversion(t_chunk *chunk, char *str)
 {
 	int	i;
 
 	i = 0;
-	while (allowed_character((unsigned char)str[i]))
+	if (str[i] == '%')
 	{
-		i++;
+		chunk->conversion = ft_strdup("%");
+		return (i + 1);
 	}
-	if (i > 0)
+	if (is_conv_spec(str[i]))
 	{
-		chunk->flags = ft_substr(str, 0, i);
+		while (is_conv_spec(str[i]))
+		{
+			i++;
+		}
+		chunk->conversion = ft_substr(str, 0, i);
 	}
 	return (i);
 }
 
-int	allowed_character(char c)
+int	is_conv_spec(char c)
 {
-	if (c == '-' || c == '0')
-		return (1);
+	char	allowed_specs[9];
+	int		i;
+
+	i = 0;
+	ft_strlcpy(allowed_specs, "cspdiuxX", 9);
+	while (allowed_specs[i])
+	{
+		if (c == allowed_specs[i])
+			return (1);
+		i++;
+	}
 	return (0);
 }
