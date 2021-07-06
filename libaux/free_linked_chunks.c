@@ -1,42 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   eval_conversion.c                                  :+:      :+:    :+:   */
+/*   free_linked_chunks.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hde-camp <hde-camp@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/07/05 20:49:44 by hde-camp          #+#    #+#             */
-/*   Updated: 2021/07/06 16:22:27 by hde-camp         ###   ########.fr       */
+/*   Created: 2021/07/06 15:17:01 by hde-camp          #+#    #+#             */
+/*   Updated: 2021/07/06 15:18:55 by hde-camp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libaux.h"
-#include "../libft/libft.h"
 
-static int	is_conv_spec(char c);
-
-int	eval_conversion(t_chunk *chunk, char *str)
+void	free_linked_chunks(t_chunk **chunk)
 {
-	if (is_conv_spec(str[0]))
-	{
-		chunk->conversion = ft_substr(str, 0, 1);
-		return (1);
-	}
-	return (0);
-}
+	t_chunk *temp;
 
-int	is_conv_spec(char c)
-{
-	char	allowed_specs[10];
-	int		i;
-
-	i = 0;
-	ft_strlcpy(allowed_specs, "cspdiuxX%", 10);
-	while (allowed_specs[i])
-	{
-		if (c == allowed_specs[i])
-			return (1);
-		i++;
-	}
-	return (0);
+	
 }

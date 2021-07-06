@@ -6,7 +6,7 @@
 /*   By: hde-camp <hde-camp@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/05 19:43:47 by hde-camp          #+#    #+#             */
-/*   Updated: 2021/07/05 20:49:01 by hde-camp         ###   ########.fr       */
+/*   Updated: 2021/07/06 14:43:23 by hde-camp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	eval_width(t_chunk *chunk, char *str)
 		chunk->width = ft_strdup("*");
 		return (i + 1);
 	}
-	if (ft_isdigit(str[i]) != 0)
+	if (ft_isdigit(str[i]) != 0 && (char)str[i] != '0')
 	{
 		while (ft_isdigit(str[i]) != 0)
 		{

@@ -1,42 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   eval_conversion.c                                  :+:      :+:    :+:   */
+/*   for_each_chunk.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hde-camp <hde-camp@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/07/05 20:49:44 by hde-camp          #+#    #+#             */
-/*   Updated: 2021/07/06 16:22:27 by hde-camp         ###   ########.fr       */
+/*   Created: 2021/07/06 15:19:21 by hde-camp          #+#    #+#             */
+/*   Updated: 2021/07/06 18:05:19 by hde-camp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libaux.h"
-#include "../libft/libft.h"
 
-static int	is_conv_spec(char c);
-
-int	eval_conversion(t_chunk *chunk, char *str)
+void	for_each_chunk(t_chunk **chunk, void (*f)(t_chunk **))
 {
-	if (is_conv_spec(str[0]))
+	t_chunk *temp;
+	t_chunk *aux;
+
+	temp = first_chunk(*chunk);
+	aux  = temp;
+	while (temp != NULL)
 	{
-		chunk->conversion = ft_substr(str, 0, 1);
-		return (1);
+		aux = temp->next;
+		f(&temp);
+		temp = aux;
 	}
-	return (0);
 }
 
-int	is_conv_spec(char c)
+void	args_iterator(t_chunk **chunk, void (*f)(t_chunk **, va_list),va_list args)
 {
-	char	allowed_specs[10];
-	int		i;
+	t_chunk *temp;
+	t_chunk *aux;
 
-	i = 0;
-	ft_strlcpy(allowed_specs, "cspdiuxX%", 10);
-	while (allowed_specs[i])
+	temp = first_chunk(*chunk);
+	aux  = temp;
+	while (temp != NULL)
 	{
-		if (c == allowed_specs[i])
-			return (1);
-		i++;
+		aux = temp->next;
+		f(&temp, args);
+		temp = aux;
 	}
-	return (0);
 }

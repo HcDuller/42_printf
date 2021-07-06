@@ -3,6 +3,7 @@
 
 # include <stddef.h>
 # include <stdlib.h>
+# include <stdarg.h>
 
 typedef struct s_chunk
 {
@@ -16,6 +17,10 @@ typedef struct s_chunk
 }	t_chunk;
 
 t_chunk	*new_chunk(void *arg);
+t_chunk	*new_last_chunk(t_chunk **chunk, void *content);
+t_chunk	*first_chunk(t_chunk *ptr);
+void	for_each_chunk(t_chunk **chunk, void (*f)(t_chunk **));
+void	args_iterator(t_chunk **chunk, void (*f)(t_chunk **, va_list),va_list args);
 void	free_chunk(t_chunk **str_ptr);
 int		eval_flags(t_chunk *chunk, char *str);
 int		eval_width(t_chunk *chunk, char *str);
