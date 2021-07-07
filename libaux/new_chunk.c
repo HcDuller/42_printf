@@ -6,7 +6,7 @@
 /*   By: hde-camp <hde-camp@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/01 12:20:52 by hde-camp          #+#    #+#             */
-/*   Updated: 2021/07/05 21:27:49 by hde-camp         ###   ########.fr       */
+/*   Updated: 2021/07/07 17:53:01 by hde-camp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,9 @@ t_chunk	*new_chunk(void *arg)
 		else
 			self_ptr->argument = NULL;
 		self_ptr->flags = NULL;
-		self_ptr->width = NULL;
-		self_ptr->precision = NULL;
-		self_ptr->conversion = NULL;
+		self_ptr->width = 0;
+		self_ptr->precision = -1;
+		self_ptr->conversion = (unsigned char)0;
 		self_ptr->next = NULL;
 		self_ptr->previous = NULL;
 	}

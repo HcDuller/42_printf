@@ -6,7 +6,7 @@
 /*   By: hde-camp <hde-camp@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/05 20:49:44 by hde-camp          #+#    #+#             */
-/*   Updated: 2021/07/06 16:22:27 by hde-camp         ###   ########.fr       */
+/*   Updated: 2021/07/07 16:35:13 by hde-camp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	eval_conversion(t_chunk *chunk, char *str)
 {
 	if (is_conv_spec(str[0]))
 	{
-		chunk->conversion = ft_substr(str, 0, 1);
+		chunk->conversion = str[0];
 		return (1);
 	}
 	return (0);

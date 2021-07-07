@@ -6,7 +6,7 @@
 /*   By: hde-camp <hde-camp@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/05 16:41:23 by hde-camp          #+#    #+#             */
-/*   Updated: 2021/07/05 19:42:53 by hde-camp         ###   ########.fr       */
+/*   Updated: 2021/07/07 19:19:52 by hde-camp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ int	eval_flags(t_chunk *chunk, char *str)
 		i++;
 	}
 	if (i > 0)
-	{
 		chunk->flags = ft_substr(str, 0, i);
-	}
+	else
+		chunk->flags = ft_calloc(1, sizeof(char));
 	return (i);
 }
 

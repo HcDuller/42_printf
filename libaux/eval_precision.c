@@ -5,44 +5,18 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: hde-camp <hde-camp@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/07/05 19:42:33 by hde-camp          #+#    #+#             */
-/*   Updated: 2021/07/05 20:46:02 by hde-camp         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   eval_flags.c                                       :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: hde-camp <hde-camp@student.42sp.org.br>    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/05 16:41:23 by hde-camp          #+#    #+#             */
-/*   Updated: 2021/07/05 18:16:17 by hde-camp         ###   ########.fr       */
+/*   Updated: 2021/07/07 18:18:03 by hde-camp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libaux.h"
 #include "../libft/libft.h"
 
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   eval_flags.c                                       :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: hde-camp <hde-camp@student.42sp.org.br>    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/07/05 16:41:23 by hde-camp          #+#    #+#             */
-/*   Updated: 2021/07/05 19:42:53 by hde-camp         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-#include "libaux.h"
-#include "../libft/libft.h"
-
-int	eval_precision(t_chunk *chunk, char *str)
+int	eval_precision(t_chunk *chunk, char *str, va_list args)
 {
-	int	i;
+	int		i;
+	char	*l;
 
 	i = 0;
 	if (str[i] == '.')
@@ -50,7 +24,7 @@ int	eval_precision(t_chunk *chunk, char *str)
 		i++;
 		if (str[i] == '*')
 		{
-			chunk->precision = ft_strdup("*");
+			chunk->precision = va_arg(args, int);
 			return (i + 1);
 		}
 		while (ft_isdigit(str[i]) != 0)
@@ -58,9 +32,14 @@ int	eval_precision(t_chunk *chunk, char *str)
 			i++;
 		}
 		if (i > 1)
-			chunk->precision = ft_substr(str, 0, i);
+		{
+			l = ft_substr(str, 0, i);
+			chunk->precision = ft_atoi(l);
+			free(l);
+			l = NULL;
+		}
 		else
-			chunk->precision = ft_strdup("0");
+			chunk->precision = 0;
 	}
 	return (i);
 }
