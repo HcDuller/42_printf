@@ -6,7 +6,7 @@
 /*   By: hde-camp <hde-camp@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 17:05:28 by hde-camp          #+#    #+#             */
-/*   Updated: 2021/07/07 19:54:25 by hde-camp         ###   ########.fr       */
+/*   Updated: 2021/07/12 15:50:43 by hde-camp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,11 @@ int	eval_simple_s(char *str, t_chunk **chunk)
 
 void	print_chunk(t_chunk **ptr)
 {
+	if ((*ptr)->conversion == 'c')
+	{
+		write(1, (*ptr)->argument, (*ptr)->width);
+		return ;
+	}
 	if ((*ptr)->argument != NULL)
 		ft_putstr_fd((char *)(*ptr)->argument, 1);
 }
@@ -84,11 +89,11 @@ void	eval_argument(t_chunk **chunk, va_list args)
 		if ((*chunk)->argument == NULL)
 		{
 			if (t == 0)
-				(*chunk)->argument = va_arg(args, char);
+				(*chunk)->argument = ft_calloc(1, sizeof(char));
 			if (t == 1)
-				(*chunk)->argument = res_from_s(va_arg(args, char *), chunk);
+				(*chunk)->argument = input_is_char_p(va_arg(args, char *), chunk);
 			if (t == 2)
-				(*chunk)->argument = va_arg(args, int);
+				(*chunk)->argument = input_is_int(va_arg(args, int), chunk);
 			if (t == 3)
 				(*chunk)->argument = va_arg(args, unsigned int);
 			if (t == 4)

@@ -21,13 +21,16 @@ t_chunk	*new_chunk(void *arg);
 t_chunk	*new_last_chunk(t_chunk **chunk, void *content);
 t_chunk	*first_chunk(t_chunk *ptr);
 void	for_each_chunk(t_chunk **chunk, void (*f)(t_chunk **));
-void	args_iterator(t_chunk **chunk, void (*f)(t_chunk **, va_list),va_list args);
 void	free_chunk(t_chunk **str_ptr);
 int		eval_flags(t_chunk *chunk, char *str);
 int		eval_width(t_chunk *chunk, char *str, va_list args);
 int		eval_precision(t_chunk *chunk, char *str, va_list args);
 int		eval_conversion(t_chunk *chunk, char *str);
-char	*res_from_s(const char *arg,t_chunk **chunk);
-char	*eval_s_flags(char *flags,const char *arg,int n);
+char	*input_is_char_p(const char *arg, t_chunk **chunk);
+char	*input_is_int(int arg, t_chunk **chunk);
+char	*proc_s_flags(char *flags, const char *arg, int n);
+char	*proc_d_flags(char **base_number, t_chunk **chunk, char sign);
+char	*res_from_d(int arg, t_chunk **chunk);
+char	*res_from_c(int arg, t_chunk **chunk);
 
 #endif

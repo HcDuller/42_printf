@@ -1,28 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   for_each_chunk.c                                   :+:      :+:    :+:   */
+/*   linttoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hde-camp <hde-camp@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/07/06 15:19:21 by hde-camp          #+#    #+#             */
-/*   Updated: 2021/07/13 16:50:03 by hde-camp         ###   ########.fr       */
+/*   Created: 2021/07/13 19:10:37 by hde-camp          #+#    #+#             */
+/*   Updated: 2021/07/13 19:17:38 by hde-camp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libaux.h"
 
-void	for_each_chunk(t_chunk **chunk, void (*f)(t_chunk **))
+char	*linttoa(unsigned int n,int o_b)
 {
-	t_chunk	*temp;
-	t_chunk	*aux;
+	int		i;
+	char	*p;
 
-	temp = first_chunk(*chunk);
-	aux = temp;
-	while (temp != NULL)
-	{
-		aux = temp->next;
-		f(&temp);
-		temp = aux;
-	}
+	return (p);
 }

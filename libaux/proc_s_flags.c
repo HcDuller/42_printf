@@ -1,28 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   for_each_chunk.c                                   :+:      :+:    :+:   */
+/*   proc_s_flags.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hde-camp <hde-camp@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/07/06 15:19:21 by hde-camp          #+#    #+#             */
-/*   Updated: 2021/07/13 16:50:03 by hde-camp         ###   ########.fr       */
+/*   Created: 2021/07/08 12:11:47 by hde-camp          #+#    #+#             */
+/*   Updated: 2021/07/13 19:18:13 by hde-camp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libaux.h"
 
-void	for_each_chunk(t_chunk **chunk, void (*f)(t_chunk **))
+char	*proc_s_flags(char *flags, const char *arg, int n)
 {
-	t_chunk	*temp;
-	t_chunk	*aux;
+	int		i;
+	int		j;
+	char	*pad;
+	char	*aux;
 
-	temp = first_chunk(*chunk);
-	aux = temp;
-	while (temp != NULL)
+	i = 0;
+	while (*flags)
 	{
-		aux = temp->next;
-		f(&temp);
-		temp = aux;
+		if (*flags == '-')
+			i++;
+		flags++;
 	}
+	j = 0;
+	pad = ft_calloc(n + 1, sizeof(char));
+	while (j < n)
+	{
+		pad[j++] = (unsigned char)32;
+	}
+	if (i > 0)
+		aux = ft_strjoin(arg, pad);
+	else
+		aux = ft_strjoin(pad, arg);
+	free(pad);
+	return (aux);
 }
