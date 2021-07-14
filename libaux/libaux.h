@@ -28,9 +28,12 @@ int		eval_precision(t_chunk *chunk, char *str, va_list args);
 int		eval_conversion(t_chunk *chunk, char *str);
 char	*input_is_char_p(const char *arg, t_chunk **chunk);
 char	*input_is_int(int arg, t_chunk **chunk);
+char	*input_is_uint(unsigned int n, t_chunk **chunk);
 char	*proc_s_flags(char *flags, const char *arg, int n);
 char	*proc_d_flags(char **base_number, t_chunk **chunk, char sign);
+void	proc_ux_flags(char **str, t_chunk **chunk);
 char	*res_from_d(int arg, t_chunk **chunk);
 char	*res_from_c(int arg, t_chunk **chunk);
+void	apply_padding(char **str, int size, int side, char c);
 
 #endif
