@@ -37,5 +37,6 @@ void	proc_p_flags(char **str, t_chunk **chunk);
 char	*res_from_d(int arg, t_chunk **chunk);
 char	*res_from_c(int arg, t_chunk **chunk);
 void	apply_padding(char **str, int size, int side, char c);
+int		ft_printf(const char *s, ...);
 
 #endif

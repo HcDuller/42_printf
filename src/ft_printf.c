@@ -6,11 +6,11 @@
 /*   By: hde-camp <hde-camp@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 17:05:28 by hde-camp          #+#    #+#             */
-/*   Updated: 2021/07/14 19:54:28 by hde-camp         ###   ########.fr       */
+/*   Updated: 2021/07/15 16:47:21 by hde-camp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libaux/libaux.h"
+#include "libaux.h"
 
 int			eval_format(char *str, t_chunk **chunk, va_list args);
 static int	eval_simple_s(char *str, t_chunk **chunk);
@@ -22,7 +22,7 @@ int	ft_printf(const char *s, ...)
 {
 	int		i;
 	t_chunk	*chunks;
-	va_list args;
+	va_list	args;
 
 	i = 0;
 	chunks = NULL;
@@ -81,43 +81,27 @@ void	print_chunk(t_chunk **ptr)
 
 void	eval_argument(t_chunk **chunk, va_list args)
 {
-	int	t;
+	char	c;
+	char	*p;
 
 	if ((*chunk)->flags != NULL)
 	{
-		t = eval_conv_input(*chunk);
+		c = (unsigned char)(chunk->conversion);
 		if ((*chunk)->argument == NULL)
 		{
-			if (t == 0)
-				(*chunk)->argument = ft_calloc(1, sizeof(char));
-			if (t == 1)
-				(*chunk)->argument = input_is_char_p(va_arg(args, char *), chunk);
-			if (t == 2)
-				(*chunk)->argument = input_is_int(va_arg(args, int), chunk);
-			if (t == 3)
-				(*chunk)->argument = input_is_uint(va_arg(args, unsigned int), chunk);
-			if (t == 4)
-				(*chunk)->argument = input_is_ulong(va_arg(args, unsigned long), chunk);
-			if (t == 5)
-				(*chunk)->argument = ft_strdup("%");
+			if (c == 's')
+				p = input_is_char_p(va_arg(args, char *), chunk);
+			else if (c == 'c' || c == 'd' || c == 'i')
+				p = input_is_int(va_arg(args, int), chunk);
+			else if (c == 'u' || c == 'x' || c == 'X')
+				p = input_is_uint(va_arg(args, unsigned int), chunk);
+			else if (c == 'p')
+				p = input_is_ulong(va_arg(args, unsigned long), chunk);
+			else if (c == '%')
+				p = ft_strdup("%");
+			else
+				p = ft_calloc(1, sizeof(char));
+			(*chunk)->argument = p;
 		}
 	}
-}
-
-int	eval_conv_input(t_chunk *chunk)
-{
-	char	c;
-
-	c = (unsigned char)(chunk->conversion);
-	if (c == 's')
-		return (1);
-	if (c == 'c' || c == 'd' || c == 'i')
-		return (2);
-	if (c == 'u' || c == 'x' || c == 'X')
-		return (3);
-	if (c == 'p')
-		return (4);
-	if (c == '%')
-		return (5);
-	return (0);
 }
