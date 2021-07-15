@@ -6,32 +6,31 @@
 /*   By: hde-camp <hde-camp@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/12 16:16:30 by hde-camp          #+#    #+#             */
-/*   Updated: 2021/07/13 17:07:29 by hde-camp         ###   ########.fr       */
+/*   Updated: 2021/07/15 14:42:06 by hde-camp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libaux.h"
 
-static	char	*sign_agnostic_itoa(int n, int precision);
+static	char	*sign_agnostic_uitoa(int n, int precision);
 static	int	available_digits(int n);
 static	int	mod(int n);
 
 char	*res_from_d(int arg, t_chunk **chunk)
 {
 	char	*p;
-	char	*aux;
 	char	sign;
 
 	if (arg > 0)
 		sign = '+';
 	else
 		sign = '-';
-	p = sign_agnostic_itoa(arg, (*chunk)->precision);
+	p = sign_agnostic_uitoa(arg, (*chunk)->precision);
 	proc_d_flags(&p, chunk, sign);
 	return (p);
 }
 
-char	*sign_agnostic_itoa(int n, int precision)
+char	*sign_agnostic_uitoa(int n, int precision)
 {
 	int		i;
 	char	*r;

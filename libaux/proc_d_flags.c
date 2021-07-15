@@ -6,7 +6,7 @@
 /*   By: hde-camp <hde-camp@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/13 14:12:32 by hde-camp          #+#    #+#             */
-/*   Updated: 2021/07/14 16:52:26 by hde-camp         ###   ########.fr       */
+/*   Updated: 2021/07/14 19:47:27 by hde-camp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ char	pad_flag(char *flags)
 			c = '-';
 		i++;
 	}
+	return (c);
 }
 
 char	sign_flag(char *flags)
@@ -78,4 +79,5 @@ char	sign_flag(char *flags)
 			c = '+';
 		i++;
 	}
+	return (c);
 }

@@ -6,7 +6,7 @@
 /*   By: hde-camp <hde-camp@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 17:05:28 by hde-camp          #+#    #+#             */
-/*   Updated: 2021/07/14 16:45:01 by hde-camp         ###   ########.fr       */
+/*   Updated: 2021/07/14 19:54:28 by hde-camp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ void	eval_argument(t_chunk **chunk, va_list args)
 			if (t == 3)
 				(*chunk)->argument = input_is_uint(va_arg(args, unsigned int), chunk);
 			if (t == 4)
-				(*chunk)->argument = va_arg(args, unsigned long);
+				(*chunk)->argument = input_is_ulong(va_arg(args, unsigned long), chunk);
 			if (t == 5)
 				(*chunk)->argument = ft_strdup("%");
 		}

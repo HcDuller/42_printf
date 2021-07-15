@@ -6,7 +6,7 @@
 /*   By: hde-camp <hde-camp@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/14 16:44:45 by hde-camp          #+#    #+#             */
-/*   Updated: 2021/07/14 19:33:54 by hde-camp         ###   ########.fr       */
+/*   Updated: 2021/07/15 14:42:22 by hde-camp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ static	int	is_non_zero(char *str);
 void	proc_ux_flags(char **str, t_chunk **chunk)
 {
 	int		lens[10];
-	char	*res;
 
 	lens[0] = ft_strlen(*str);
 	lens[1] = (*chunk)->width;
