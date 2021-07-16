@@ -6,7 +6,7 @@
 /*   By: hde-camp <hde-camp@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/05 16:41:23 by hde-camp          #+#    #+#             */
-/*   Updated: 2021/07/16 16:03:44 by hde-camp         ###   ########.fr       */
+/*   Updated: 2021/07/16 18:19:54 by hde-camp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,15 +32,16 @@ int	eval_flags(t_chunk *chunk, char *str)
 
 int	allowed_character(char c)
 {
-	char	*alwchr;
+	int		i;
+	char	*p;
 
-	alwchr = ft_strdup("-0 #+");
-	while (*alwchr)
+	i = 0;
+	p = "-0 #+";
+	while (p[i])
 	{
-		if (*alwchr == c)
+		if (p[i] == c)
 			return (1);
-		alwchr++;
+		i++;
 	}
-	
 	return (0);
 }

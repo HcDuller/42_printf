@@ -6,7 +6,7 @@
 /*   By: hde-camp <hde-camp@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/13 19:10:37 by hde-camp          #+#    #+#             */
-/*   Updated: 2021/07/15 18:30:10 by hde-camp         ###   ########.fr       */
+/*   Updated: 2021/07/16 17:59:03 by hde-camp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static	int	len(unsigned int n, int base);
 static	char	*dec_to_hex(unsigned int n, int uppercase, int prec);
-static	char	*dec_to_oct(unsigned int n, int prec);
+static	char	*dec_to_str(unsigned int n, int prec);
 
 char	*input_is_uint(unsigned int n, t_chunk **chunk)
 {
@@ -28,7 +28,7 @@ char	*input_is_uint(unsigned int n, t_chunk **chunk)
 		return (p);
 	}
 	else if (o_b == 'u')
-		p = dec_to_oct(n, (*chunk)->precision);
+		p = dec_to_str(n, (*chunk)->precision);
 	else if (o_b == 'x')
 		p = dec_to_hex(n, 0, (*chunk)->precision);
 	else if (o_b == 'X')
@@ -60,19 +60,19 @@ char	*dec_to_hex(unsigned int n, int uppercase, int prec)
 	return (hex);
 }
 
-char	*dec_to_oct(unsigned int n, int prec)
+char	*dec_to_str(unsigned int n, int prec)
 {
 	int		l;
 	char	*octal;
 
-	l = len(n, 8);
+	l = len(n, 10);
 	if (l < prec)
 		l = prec;
 	octal = ft_calloc(l + 1, 1);
 	while (l-- > 0)
 	{
-		octal[l] = (unsigned char)(n % 8 + 48);
-		n = n / 8;
+		octal[l] = (unsigned char)(n % 10 + 48);
+		n = n / 10;
 	}
 	return (octal);
 }

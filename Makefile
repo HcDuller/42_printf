@@ -78,6 +78,8 @@ all : ${NAME}
 clean:
 	${RM} ${LIBAUX_OBJ} ${BUILD_D} ${LIBFT_OBJ} ${LIBFT_D}/${BUILD_D} ${LIBFT_D}/libft.a 
 
+bonus: all
+
 fclean: clean
 	${RM} ${NAME}
 

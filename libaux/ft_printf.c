@@ -6,7 +6,7 @@
 /*   By: hde-camp <hde-camp@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 17:05:28 by hde-camp          #+#    #+#             */
-/*   Updated: 2021/07/16 15:56:33 by hde-camp         ###   ########.fr       */
+/*   Updated: 2021/07/16 18:43:57 by hde-camp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ void	eval_argument(t_chunk **chunk, va_list args)
 			else if (c == 'p')
 				p = input_is_ulong(va_arg(args, unsigned long), chunk);
 			else if (c == '%')
-				p = ft_strdup("%");
+				p = input_is_char_p("%", chunk);
 			else
 				p = ft_calloc(1, sizeof(char));
 			(*chunk)->argument = p;

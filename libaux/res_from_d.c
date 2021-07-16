@@ -6,7 +6,7 @@
 /*   By: hde-camp <hde-camp@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/12 16:16:30 by hde-camp          #+#    #+#             */
-/*   Updated: 2021/07/15 14:42:06 by hde-camp         ###   ########.fr       */
+/*   Updated: 2021/07/16 18:49:23 by hde-camp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	*res_from_d(int arg, t_chunk **chunk)
 	char	*p;
 	char	sign;
 
-	if (arg > 0)
+	if (arg >= 0)
 		sign = '+';
 	else
 		sign = '-';
@@ -35,6 +35,8 @@ char	*sign_agnostic_uitoa(int n, int precision)
 	int		i;
 	char	*r;
 
+	if (!n && !precision)
+		return (ft_calloc(1,sizeof(char)));
 	i = available_digits(n);
 	if (precision > i)
 		i = precision;
