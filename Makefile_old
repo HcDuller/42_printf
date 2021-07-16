@@ -67,31 +67,27 @@ LIBAUX_SRC	=	apply_padding.c \
 				proc_ux_flags.c \
 				res_from_d.c
 
-LIBFT_SRC	:= $(addprefix ${LIBFT_D}/${BUILD_D}/,${LIBFT_SRC})
-LIBFT_OBJ	:= ${LIBFT_SRC:.c=.o}
+LIBFT_OBJS	:=	$(addprefix ${BUILD_D}/,${LIBFT_SRC:.c=.o})
+LIBAUX_OBJS	:=	$(addprefix ${BUILD_D}/,${LIBAUX_SRC:.c=.o})
 
-LIBAUX_OBJ	:= $(addprefix ${BUILD_D}/,${LIBAUX_SRC:.c=.o})
-LIBAUX_SRC	:= $(addprefix ${LIBAUX_D}/,${LIBAUX_SRC})
-
-${LIBFT_D}/libft.a : ${LIBFT_OBJ}
-	${AR} ${LIBFT_D}/libft.a ${LIBFT_OBJ}
-
-${LIBFT_D}/${BUILD_D}/%.o : ${LIBFT_D}/%.c
-	@mkdir -p ${LIBFT_D}/${BUILD_D}
-	${CC} ${CFLAGS} $< -c -o $@
+${BUILD_D}/%.o : ${LIBFT_D}/%.c
+	@mkdir -p ${BUILD_D}
+	${CC} ${CFLAGS} -c $< -o $@
 
 ${BUILD_D}/%.o : ${LIBAUX_D}/%.c
 	@mkdir -p ${BUILD_D}
-	${CC} ${CFLAGS} $< -c -o $@ -I../libft
+	${CC} ${CFLAGS} -c $< -o $@ -Ilibft
 
-${NAME} : ${LIBFT_D}/libft.a ${LIBAUX_OBJ}
-	@cp ${LIBFT_D}/libft.a ${NAME}
-	${AR} ${NAME} ${LIBAUX_OBJ}
+${NAME} : ${LIBFT_OBJS} ${LIBAUX_OBJS}
+	${AR} ${NAME} ${LIBFT_OBJS} ${LIBAUX_OBJS}
 
 all : ${NAME}
 
+##
+##bonus: ${NAME} 
+##	
 clean:
-	${RM} ${LIBAUX_OBJ} ${BUILD_D} ${LIBFT_OBJ} ${LIBFT_D}/${BUILD_D} ${LIBFT_D}/libft.a 
+	${RM} ${BUILD_D}/*.o ${BUILD_D}
 
 fclean: clean
 	${RM} ${NAME}

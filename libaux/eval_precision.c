@@ -6,12 +6,11 @@
 /*   By: hde-camp <hde-camp@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/05 16:41:23 by hde-camp          #+#    #+#             */
-/*   Updated: 2021/07/13 16:58:43 by hde-camp         ###   ########.fr       */
+/*   Updated: 2021/07/15 19:07:03 by hde-camp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libaux.h"
-#include "../libft/libft.h"
 
 static	int	count_digits(char *ptr);
 

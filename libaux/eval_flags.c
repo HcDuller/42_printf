@@ -1,42 +1,45 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   eval_conversion.c                                  :+:      :+:    :+:   */
+/*   eval_flags.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hde-camp <hde-camp@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/07/05 20:49:44 by hde-camp          #+#    #+#             */
-/*   Updated: 2021/07/14 19:30:45 by hde-camp         ###   ########.fr       */
+/*   Created: 2021/07/05 16:41:23 by hde-camp          #+#    #+#             */
+/*   Updated: 2021/07/15 19:06:59 by hde-camp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libaux.h"
-#include "../libft/libft.h"
 
-static int	is_conv_spec(char c);
+static	int	allowed_character(char c);
 
-int	eval_conversion(t_chunk *chunk, char *str)
+int	eval_flags(t_chunk *chunk, char *str)
 {
-	if (is_conv_spec(str[0]))
-	{
-		chunk->conversion = str[0];
-		return (1);
-	}
-	return (0);
-}
-
-int	is_conv_spec(char c)
-{
-	char	allowed_specs[10];
-	int		i;
+	int	i;
 
 	i = 0;
-	ft_strlcpy(allowed_specs, "cspdiuxX%", 10);
-	while (allowed_specs[i])
+	while (allowed_character((unsigned char)str[i]))
 	{
-		if (c == allowed_specs[i])
-			return (1);
 		i++;
+	}
+	if (i > 0)
+		chunk->flags = ft_substr(str, 0, i);
+	else
+		chunk->flags = ft_calloc(1, sizeof(char));
+	return (i);
+}
+
+int	allowed_character(char c)
+{
+	char	*alwchr;
+
+	alwchr = ft_strdup("-0 #+");
+	while (*alwchr)
+	{
+		if (*alwchr == c)
+			return (1);
+		alwchr++;
 	}
 	return (0);
 }

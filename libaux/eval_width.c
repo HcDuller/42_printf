@@ -6,7 +6,7 @@
 /*   By: hde-camp <hde-camp@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/05 19:43:47 by hde-camp          #+#    #+#             */
-/*   Updated: 2021/07/07 15:57:43 by hde-camp         ###   ########.fr       */
+/*   Updated: 2021/07/15 19:07:14 by hde-camp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@
 /* ************************************************************************** */
 
 #include "libaux.h"
-#include "../libft/libft.h"
 
 int	eval_width(t_chunk *chunk, char *str, va_list args)
 {

@@ -6,7 +6,7 @@
 /*   By: hde-camp <hde-camp@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 17:05:28 by hde-camp          #+#    #+#             */
-/*   Updated: 2021/07/15 16:47:21 by hde-camp         ###   ########.fr       */
+/*   Updated: 2021/07/16 13:11:13 by hde-camp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,28 +14,31 @@
 
 int			eval_format(char *str, t_chunk **chunk, va_list args);
 static int	eval_simple_s(char *str, t_chunk **chunk);
-static int	eval_conv_input(t_chunk *chunk);
 static void	eval_argument(t_chunk **chunk, va_list args);
 static void	print_chunk(t_chunk **ptr);
 
 int	ft_printf(const char *s, ...)
 {
 	int		i;
+	char	*p;
 	t_chunk	*chunks;
 	va_list	args;
 
 	i = 0;
 	chunks = NULL;
+	p = ft_strdup(s);
 	va_start(args, s);
-	while (*s)
+	while (p[i])
 	{
-		if (*s == '%')
-			s += eval_format(s, &chunks, args);
+		if (p[i] == '%')
+			i += eval_format(&p[i], &chunks, args);
 		else
-			s += eval_simple_s(s, &chunks);
+			i += eval_simple_s(&p[i], &chunks);
 	}
+	free(p);
 	for_each_chunk(&chunks, print_chunk);
 	for_each_chunk(&chunks, free_chunk);
+	return (i);
 }
 
 int	eval_format(char *str, t_chunk **chunk, va_list args)
@@ -86,7 +89,7 @@ void	eval_argument(t_chunk **chunk, va_list args)
 
 	if ((*chunk)->flags != NULL)
 	{
-		c = (unsigned char)(chunk->conversion);
+		c = (unsigned char)((*chunk)->conversion);
 		if ((*chunk)->argument == NULL)
 		{
 			if (c == 's')

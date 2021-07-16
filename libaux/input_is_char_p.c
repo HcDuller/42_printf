@@ -6,7 +6,7 @@
 /*   By: hde-camp <hde-camp@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/07 19:53:12 by hde-camp          #+#    #+#             */
-/*   Updated: 2021/07/12 15:00:43 by hde-camp         ###   ########.fr       */
+/*   Updated: 2021/07/15 18:30:02 by hde-camp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ char	*input_is_char_p(const char *arg, t_chunk **chunk)
 {
 	int		final_length;
 	int		o_length;
-	char	*s;
 
 	if (arg == NULL)
 		return (ft_strdup("(null)"));

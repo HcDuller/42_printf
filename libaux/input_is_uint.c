@@ -6,7 +6,7 @@
 /*   By: hde-camp <hde-camp@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/13 19:10:37 by hde-camp          #+#    #+#             */
-/*   Updated: 2021/07/14 19:32:01 by hde-camp         ###   ########.fr       */
+/*   Updated: 2021/07/15 18:30:10 by hde-camp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ static	char	*dec_to_oct(unsigned int n, int prec);
 
 char	*input_is_uint(unsigned int n, t_chunk **chunk)
 {
-	int		i;
 	char	*p;
 	char	o_b;
 
