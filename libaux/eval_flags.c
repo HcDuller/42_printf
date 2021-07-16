@@ -6,7 +6,7 @@
 /*   By: hde-camp <hde-camp@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/05 16:41:23 by hde-camp          #+#    #+#             */
-/*   Updated: 2021/07/15 19:06:59 by hde-camp         ###   ########.fr       */
+/*   Updated: 2021/07/16 16:03:44 by hde-camp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,5 +41,6 @@ int	allowed_character(char c)
 			return (1);
 		alwchr++;
 	}
+	
 	return (0);
 }

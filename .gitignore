@@ -2,3 +2,5 @@ tests/**
 .vscode
 build
 build/**
+tester/**
+tester

@@ -6,7 +6,7 @@
 /*   By: hde-camp <hde-camp@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 17:05:28 by hde-camp          #+#    #+#             */
-/*   Updated: 2021/07/16 13:11:13 by hde-camp         ###   ########.fr       */
+/*   Updated: 2021/07/16 15:56:33 by hde-camp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,29 +15,27 @@
 int			eval_format(char *str, t_chunk **chunk, va_list args);
 static int	eval_simple_s(char *str, t_chunk **chunk);
 static void	eval_argument(t_chunk **chunk, va_list args);
-static void	print_chunk(t_chunk **ptr);
+static int	print_list(t_chunk *ptr);
 
 int	ft_printf(const char *s, ...)
 {
 	int		i;
-	char	*p;
 	t_chunk	*chunks;
 	va_list	args;
 
 	i = 0;
 	chunks = NULL;
-	p = ft_strdup(s);
 	va_start(args, s);
-	while (p[i])
+	while (s[i])
 	{
-		if (p[i] == '%')
-			i += eval_format(&p[i], &chunks, args);
+		if (s[i] == '%')
+			i += eval_format((char *)&s[i], &chunks, args);
 		else
-			i += eval_simple_s(&p[i], &chunks);
+			i += eval_simple_s((char *)&s[i], &chunks);
 	}
-	free(p);
-	for_each_chunk(&chunks, print_chunk);
+	i = print_list(chunks);
 	for_each_chunk(&chunks, free_chunk);
+	va_end(args);
 	return (i);
 }
 
@@ -71,17 +69,6 @@ int	eval_simple_s(char *str, t_chunk **chunk)
 	return (i);
 }
 
-void	print_chunk(t_chunk **ptr)
-{
-	if ((*ptr)->conversion == 'c')
-	{
-		write(1, (*ptr)->argument, (*ptr)->width);
-		return ;
-	}
-	if ((*ptr)->argument != NULL)
-		ft_putstr_fd((char *)(*ptr)->argument, 1);
-}
-
 void	eval_argument(t_chunk **chunk, va_list args)
 {
 	char	c;
@@ -107,4 +94,31 @@ void	eval_argument(t_chunk **chunk, va_list args)
 			(*chunk)->argument = p;
 		}
 	}
+}
+
+int	print_list(t_chunk *ptr)
+{
+	int	sizes[2];
+
+	sizes[0] = 0;
+	sizes[1] = 0;
+	while (ptr->previous != NULL)
+		ptr = ptr->previous;
+	while (ptr->next != NULL)
+	{
+		if (ptr->conversion == 'c')
+			sizes[0] = ptr->width;
+		else
+			sizes[0] = ft_strlen(ptr->argument);
+		write(1, ptr->argument, sizes[0]);
+		sizes[1] += sizes[0];
+		ptr = ptr->next;
+	}
+	if (ptr->conversion == 'c')
+		sizes[0] = ptr->width;
+	else
+		sizes[0] = ft_strlen(ptr->argument);
+	write(1, ptr->argument, sizes[0]);
+	sizes[1] += sizes[0];
+	return (sizes[1]);
 }
