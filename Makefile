@@ -73,21 +73,6 @@ LIBFT_OBJ	:= ${LIBFT_SRC:.c=.o}
 LIBAUX_OBJ	:= $(addprefix ${BUILD_D}/,${LIBAUX_SRC:.c=.o})
 LIBAUX_SRC	:= $(addprefix ${LIBAUX_D}/,${LIBAUX_SRC})
 
-${LIBFT_D}/libft.a : ${LIBFT_OBJ}
-	${AR} ${LIBFT_D}/libft.a ${LIBFT_OBJ}
-
-${LIBFT_D}/${BUILD_D}/%.o : ${LIBFT_D}/%.c
-	@mkdir -p ${LIBFT_D}/${BUILD_D}
-	${CC} ${CFLAGS} $< -c -o $@
-
-${BUILD_D}/%.o : ${LIBAUX_D}/%.c
-	@mkdir -p ${BUILD_D}
-	${CC} ${CFLAGS} $< -c -o $@ -I../libft
-
-${NAME} : ${LIBFT_D}/libft.a ${LIBAUX_OBJ}
-	@cp ${LIBFT_D}/libft.a ${NAME}
-	${AR} ${NAME} ${LIBAUX_OBJ}
-
 all : ${NAME}
 
 clean:
@@ -97,3 +82,19 @@ fclean: clean
 	${RM} ${NAME}
 
 re:	fclean all
+
+${LIBFT_D}/libft.a : ${LIBFT_OBJ}
+	${AR} ${LIBFT_D}/libft.a ${LIBFT_OBJ}
+
+${LIBFT_D}/${BUILD_D}/%.o : ${LIBFT_D}/%.c
+	@mkdir -p ${LIBFT_D}/${BUILD_D}
+	${CC} ${CFLAGS} $< -c -o $@
+
+${BUILD_D}/%.o : ${LIBAUX_D}/%.c
+	@mkdir -p ${BUILD_D}
+	${CC} ${CFLAGS} $< -c -o $@ -I../libft -I../libaux
+
+${NAME} : ${LIBFT_D}/libft.a ${LIBAUX_OBJ}
+	@cp ${LIBFT_D}/libft.a ${NAME}
+	${AR} ${NAME} ${LIBAUX_OBJ}
+	
