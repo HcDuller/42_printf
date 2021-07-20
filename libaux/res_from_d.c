@@ -6,7 +6,7 @@
 /*   By: hde-camp <hde-camp@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/12 16:16:30 by hde-camp          #+#    #+#             */
-/*   Updated: 2021/07/16 18:49:23 by hde-camp         ###   ########.fr       */
+/*   Updated: 2021/07/19 22:19:03 by hde-camp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ char	*sign_agnostic_uitoa(int n, int precision)
 	char	*r;
 
 	if (!n && !precision)
-		return (ft_calloc(1,sizeof(char)));
+		return (ft_calloc(1, sizeof(char)));
 	i = available_digits(n);
 	if (precision > i)
 		i = precision;

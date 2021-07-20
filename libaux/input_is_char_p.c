@@ -5,6 +5,18 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: hde-camp <hde-camp@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/07/19 14:29:02 by hde-camp          #+#    #+#             */
+/*   Updated: 2021/07/19 22:18:37 by hde-camp         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   input_is_char_p.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hde-camp <hde-camp@student.42sp.org.br>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/07 19:53:12 by hde-camp          #+#    #+#             */
 /*   Updated: 2021/07/16 19:23:06 by hde-camp         ###   ########.fr       */
 /*                                                                            */
@@ -14,31 +26,27 @@
 
 char	*input_is_char_p(const char *arg, t_chunk **chunk)
 {
-	int			final_length;
-	int			o_length;
+	int			lens[2];
+	int			pos;
 	const char	*fake_arg;
+	char		*r;
 
 	if (arg == NULL)
 		fake_arg = "(null)";
 	else
 		fake_arg = arg;
-	o_length = ft_strlen(fake_arg);
-	final_length = o_length;
-	if (final_length < (*chunk)->width)
-		final_length = (*chunk)->width;
+	lens[0] = ft_strlen(fake_arg);
 	if ((*chunk)->precision > -1)
+		lens[1] = (*chunk)->precision;
+	else
+		lens[1] = lens[0];
+	r = ft_calloc(lens[0] + 1, sizeof(char));
+	pos = 0;
+	while (fake_arg[pos] && pos < lens[0] && pos < lens[1])
 	{
-		if ((*chunk)->precision < final_length)
-		{
-			if ((*chunk)->conversion == '%')
-				(*chunk)->precision = final_length;
-			else
-				final_length = (*chunk)->precision;
-		}
-		if (final_length == 0)
-			return ((char *)ft_calloc(1, sizeof(char)));
+		r[pos] = fake_arg[pos];
+		pos++;
 	}
-	if (final_length <= o_length)
-		return (ft_substr(fake_arg, 0, final_length));
-	return (proc_s_flags((*chunk)->flags, fake_arg, final_length - o_length));
+	proc_s_flags((*chunk)->flags, &r, (*chunk)->width);
+	return (r);
 }

@@ -5,39 +5,39 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: hde-camp <hde-camp@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/07/13 14:12:32 by hde-camp          #+#    #+#             */
-/*   Updated: 2021/07/16 19:01:54 by hde-camp         ###   ########.fr       */
+/*   Created: 2021/07/19 16:24:55 by hde-camp          #+#    #+#             */
+/*   Updated: 2021/07/19 21:47:52 by hde-camp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libaux.h"
 
-static	char	sign_flag(char *flags);
 static	char	pad_flag(char *flags);
+static	void	apply_sign(char **str, char *flags, char sign);
+static	int	has_sign(char sign, char *flags);
 
-char	*proc_d_flags(char **base_number, t_chunk **chunk, char sign)
+void	proc_d_flags(char **base_number, t_chunk **chunk, char sign)
 {
-	char	*p;
-	char	f[2];
+	char	f;
+	char	u_size;
 
-	f[0] = pad_flag((*chunk)->flags);
-	f[1] = sign_flag((*chunk)->flags);
-	p = NULL;
-	if (f[0] == '0')
-		apply_padding(base_number, (*chunk)->width, -1, '0');
-	else if (f[0] == '-')
-		apply_padding(base_number, (*chunk)->width, 1, ' ');
-	if (sign == '-')
-		apply_padding(base_number, ft_strlen(*base_number) + 1, -1, '-');
+	u_size = (*chunk)->width - has_sign(sign, (*chunk)->flags);
+	f = pad_flag((*chunk)->flags);
+	if (f == '0' && (*chunk)->precision == -1)
+	{
+		apply_padding(base_number, u_size, -1, '0');
+		apply_sign(base_number, (*chunk)->flags, sign);
+	}	
+	else if (f == '-')
+	{
+		apply_padding(base_number, u_size, 1, ' ');
+		apply_sign(base_number, (*chunk)->flags, sign);
+	}
 	else
 	{
-		if (f[1] == ' ')
-			apply_padding(base_number, ft_strlen(*base_number) + 1, 1, ' ');
-		else if (f[1] == '+')
-			apply_padding(base_number, ft_strlen(*base_number) + 1, 1, '+');
+		apply_sign(base_number, (*chunk)->flags, sign);
+		apply_padding(base_number, (*chunk)->width, -1, ' ');
 	}
-	apply_padding(base_number, (*chunk)->width,-1, ' ');
-	return (p);
 }
 
 char	pad_flag(char *flags)
@@ -63,24 +63,37 @@ char	pad_flag(char *flags)
 	return (c);
 }
 
-char	sign_flag(char *flags)
+void	apply_sign(char **str, char *flags, char sign)
 {
-	int		i;
-	char	c;
+	char	*temp;
+	char	aux[2];
 
-	i = 0;
-	c = '\0';
-	while (flags[i])
+	temp = NULL;
+	if (sign == '-')
+		temp = ft_strjoin("-", *str);
+	else
 	{
-		if (flags[i] == ' ')
-			c = ' ';
-		i++;
+		if (has_char(flags, '+'))
+		{
+			aux[0] = sign;
+			aux[1] = 0;
+			temp = ft_strjoin((char *)aux, *str);
+		}
+		else if (has_char(flags, ' '))
+			temp = ft_strjoin(" ", *str);
 	}
-	while (flags[i])
+	if (temp)
 	{
-		if (flags[i] == '+')
-			c = '+';
-		i++;
+		free(*str);
+		*str = temp;
 	}
-	return (c);
+}
+
+int	has_sign(char sign, char *flags)
+{
+	if (sign == '-')
+		return (1);
+	if (has_char(flags, ' ') || has_char(flags, '+'))
+		return (1);
+	return (0);
 }

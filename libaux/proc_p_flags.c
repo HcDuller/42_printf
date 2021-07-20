@@ -6,37 +6,26 @@
 /*   By: hde-camp <hde-camp@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/15 11:20:22 by hde-camp          #+#    #+#             */
-/*   Updated: 2021/07/15 14:42:17 by hde-camp         ###   ########.fr       */
+/*   Updated: 2021/07/19 22:14:02 by hde-camp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libaux.h"
 
-static	int	search_flag(char *flags, char target);
-static	char	*hex_identifier(int blank, int plus);
+static	char	*hex_prep(int blank, int plus);
+static	void	apply_m_p(char *hex_tag, char **str, int minus, int width);
 
 void	proc_p_flags(char **str, t_chunk **chunk)
 {
 	char	*hex_tag;
 	char	*temp;
-	int		flags[4];
+	char	*flags;
 
-	flags[0] = search_flag((*chunk)->flags, '0');
-	flags[1] = search_flag((*chunk)->flags, ' ');
-	flags[2] = search_flag((*chunk)->flags, '-');
-	flags[3] = search_flag((*chunk)->flags, '+');
-	hex_tag = hex_identifier(flags[1], flags[3]);
-	if (flags[2] || (*chunk)->precision != -1)
-	{
-		temp = ft_strjoin(hex_tag, *str);
-		free(*str);
-		*str = temp;
-		if (flags[2])
-			apply_padding(str, (*chunk)->width, 1, ' ');
-		else
-			apply_padding(str, (*chunk)->width, -1, ' ');
-	}
-	else if (flags[0])
+	flags = (*chunk)->flags;
+	hex_tag = hex_prep(has_char(flags, ' '), has_char(flags, '+'));
+	if (has_char(flags, '-') || (*chunk)->precision != -1)
+		apply_m_p(hex_tag, str, has_char(flags, '-'), (*chunk)->width);
+	else if (has_char(flags, '0'))
 	{
 		apply_padding(str, (*chunk)->width - ft_strlen(hex_tag), -1, '0');
 		temp = ft_strjoin(hex_tag, *str);
@@ -53,15 +42,20 @@ void	proc_p_flags(char **str, t_chunk **chunk)
 	free(hex_tag);
 }
 
-int	search_flag(char *flags, char target)
+void	apply_m_p(char *h_t, char **s, int m, int width)
 {
-	while (*flags)
-		if (*(flags++) == target)
-			return (1);
-	return (0);
+	char	*temp;
+
+	temp = ft_strjoin(h_t, *s);
+	free(*s);
+	*s = temp;
+	if (m)
+		apply_padding(s, width, 1, ' ');
+	else
+		apply_padding(s, width, -1, ' ');
 }
 
-char	*hex_identifier(int blank, int plus)
+char	*hex_prep(int blank, int plus)
 {
 	if (plus)
 		return (ft_strdup("+0x"));

@@ -30,13 +30,14 @@ char	*input_is_char_p(const char *arg, t_chunk **chunk);
 char	*input_is_int(int arg, t_chunk **chunk);
 char	*input_is_uint(unsigned int n, t_chunk **chunk);
 char	*input_is_ulong(unsigned long add, t_chunk **chunk);
-char	*proc_s_flags(char *flags, const char *arg, int n);
-char	*proc_d_flags(char **base_number, t_chunk **chunk, char sign);
+void	proc_s_flags(char *flags, char **arg, int n);
+void	proc_d_flags(char **base_number, t_chunk **chunk, char sign);
 void	proc_ux_flags(char **str, t_chunk **chunk);
 void	proc_p_flags(char **str, t_chunk **chunk);
 char	*res_from_d(int arg, t_chunk **chunk);
 char	*res_from_c(int arg, t_chunk **chunk);
 void	apply_padding(char **str, int size, int side, char c);
+int		has_char(char *haystack, char needle);
 int		ft_printf(const char *s, ...);
 
 #endif

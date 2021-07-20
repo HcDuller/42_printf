@@ -6,7 +6,7 @@
 /*   By: hde-camp <hde-camp@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/13 19:10:37 by hde-camp          #+#    #+#             */
-/*   Updated: 2021/07/16 17:59:03 by hde-camp         ###   ########.fr       */
+/*   Updated: 2021/07/19 17:55:45 by hde-camp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ char	*input_is_uint(unsigned int n, t_chunk **chunk)
 	if ((*chunk)->precision == 0 && n == 0)
 	{
 		p = ft_strdup("");
-		return (p);
 	}
 	else if (o_b == 'u')
 		p = dec_to_str(n, (*chunk)->precision);

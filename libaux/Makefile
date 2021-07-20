@@ -17,6 +17,7 @@ SRC			=	apply_padding.c \
 				eval_width.c \
 				for_each_chunk.c \
 				ft_printf.c \
+				has_char.c \
 				input_is_int.c \
 				input_is_ulong.c \
 				new_chunk.c \
@@ -32,7 +33,7 @@ SRC			=	apply_padding.c \
 				new_last_chunk.c \
 				proc_p_flags.c \
 				proc_ux_flags.c \
-				res_from_d.c
+				res_from_d.c 
 
 OBJS	=	$(addprefix $(BDIR),${SRC:.c=.o})
 

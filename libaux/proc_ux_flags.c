@@ -6,7 +6,7 @@
 /*   By: hde-camp <hde-camp@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/14 16:44:45 by hde-camp          #+#    #+#             */
-/*   Updated: 2021/07/15 14:42:22 by hde-camp         ###   ########.fr       */
+/*   Updated: 2021/07/19 22:20:05 by hde-camp         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static	int	is_non_zero(char *str);
 
 void	proc_ux_flags(char **str, t_chunk **chunk)
 {
-	int		lens[10];
+	int		lens[2];
 
 	lens[0] = ft_strlen(*str);
 	lens[1] = (*chunk)->width;
@@ -34,20 +34,16 @@ void	x_identifier(char **str, char *flags, char conversion)
 
 	if (is_non_zero(*str))
 	{
-		while (*flags && (conversion == 'x' || conversion == 'X'))
+		if (has_char(flags, '#') && has_char("xX", conversion))
 		{
-			if (*flags == '#')
-			{
-				if (conversion == 'x')
-					aux = ft_strdup("0x");
-				else
-					aux = ft_strdup("0X");
-				res = ft_strjoin(aux, *str);
-				free(*str);
-				*str = res;
-				free(aux);
-			}
-			flags++;
+			if (conversion == 'x')
+				aux = ft_strdup("0x");
+			else
+				aux = ft_strdup("0X");
+			res = ft_strjoin(aux, *str);
+			free(*str);
+			*str = res;
+			free(aux);
 		}
 	}
 }
@@ -64,7 +60,7 @@ void	apply_flags(char **str, t_chunk **chunk)
 	flags = (*chunk)->flags;
 	width = (*chunk)->width;
 	while (flags[i])
-		if (flags[i++] == '0')
+		if (flags[i++] == '0' && (*chunk)->precision == -1)
 			style = '0';
 	i = 0;
 	while (flags[i])
@@ -80,16 +76,14 @@ void	apply_flags(char **str, t_chunk **chunk)
 
 void	x_zero_padding(char **str, t_chunk **chunk)
 {
-	char	style;
 	char	conversion;
 	char	**aux;
 	int		l;
 
 	l = 0;
-	style = 0;
 	conversion = (*chunk)->conversion;
 	aux = (char **)ft_calloc(2, sizeof(char **));
-	if ((conversion == 'x' || conversion == 'X') && (*chunk)->precision == -1)
+	if (has_char((*chunk)->flags, '#') && (*chunk)->precision == -1)
 	{
 		if (is_non_zero(*str))
 		{
@@ -104,6 +98,8 @@ void	x_zero_padding(char **str, t_chunk **chunk)
 		else
 			apply_padding(str, (*chunk)->width, -1, '0');
 	}
+	else
+		apply_padding(str, (*chunk)->width, -1, '0');
 	free(aux);
 }
 

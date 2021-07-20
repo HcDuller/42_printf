@@ -50,6 +50,7 @@ LIBAUX_SRC	=	apply_padding.c \
 				eval_width.c \
 				for_each_chunk.c \
 				ft_printf.c \
+				has_char.c \
 				input_is_int.c \
 				input_is_ulong.c \
 				new_chunk.c \
