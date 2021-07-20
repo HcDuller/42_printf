@@ -4,3 +4,5 @@ build
 build/**
 tester/**
 tester
+*.a
+**/*.a
